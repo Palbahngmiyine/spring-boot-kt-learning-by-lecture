@@ -14,10 +14,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers.*
 
 @RunWith(SpringRunner::class)
 @WebMvcTest(UserController::class)
-class UserControllerTest {
-
-    @Autowired
-    private lateinit var mockMvc: MockMvc
+class UserControllerTest(@Autowired val mockMvc: MockMvc) {
 
     @Test
     fun hello() {
