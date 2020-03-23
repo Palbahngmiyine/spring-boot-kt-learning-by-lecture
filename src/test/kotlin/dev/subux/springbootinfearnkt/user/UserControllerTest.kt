@@ -27,7 +27,7 @@ class UserControllerTest {
     }
 
     @Test
-    fun createUser_JSON() {
+    fun `유저생성 JSON`() {
         val userJson = "{\"username\": \"subin\", \"password\": \"123\"}"
         mockMvc.perform(
                 post("/users/create")
@@ -37,5 +37,20 @@ class UserControllerTest {
                 .andExpect(status().isOk)
                 .andExpect(jsonPath("$.username").value("subin"))
                 .andExpect(jsonPath("$.password").value("123"))
+    }
+
+    @Test
+    fun `유저생성 XML`() {
+        val userJson = "{\"username\": \"subin\", \"password\": \"123\"}"
+        mockMvc.perform(
+                        post("/users/create")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .accept(MediaType.APPLICATION_XML)
+                                .content(userJson))
+                .andExpect(status().isOk)
+                .andExpect(xpath("/User/username")
+                        .string("subin"))
+                .andExpect(xpath("/User/password")
+                        .string("123"))
     }
 }
